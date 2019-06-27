@@ -31,6 +31,9 @@ Filters
    - :ref:`policy-compliant <Azure.common.filters.policy-compliant>`
 
 
+   - :ref:`resource-lock <Azure.common.filters.resource-lock>`
+
+
    - :ref:`storage-diagnostic-settings <Azure.common.filters.storage-diagnostic-settings>`
 
 
@@ -704,6 +707,74 @@ resources.
     required:
     - type
     - compliant
+    - type
+
+
+
+.. _Azure.common.filters.resource-lock:
+
+resource-lock
++++++++++++++
+
+Filter locked resources.
+Lock can be of 2 types: ReadOnly and CanNotDelete. To filter any lock, use "Any" type.
+Lock type is optional, by default any lock will be applied to the filter.
+To get unlocked resources, use "Absent" type.
+
+:example: Get all keyvaults with ReadOnly lock:
+
+.. code-block :: yaml
+
+   policies:
+    - name: locked-keyvaults
+      resource: azure.keyvault
+      filters:
+        - type: resource-lock
+          lock-type: ReadOnly
+
+:example: Get all locked sqldatabases (any type of lock):
+
+.. code-block :: yaml
+
+   policies:
+    - name: locked-sqldatabases
+      resource: azure.sqldatabase
+      filters:
+        - type: resource-lock
+
+:example: Get all unlocked resource groups:
+
+.. code-block :: yaml
+
+   policies:
+    - name: unlock-rgs
+      resource: azure.resourcegroup
+      filters:
+        - type: resource-lock
+          lock-type: Absent
+
+.. container:: toggle
+
+  
+
+  .. raw:: html
+     
+    <div class="header docutils container" style=""></div>
+
+  .. code-block:: yaml
+
+    properties:
+      lock-type:
+        enum:
+        - ReadOnly
+        - CanNotDelete
+        - Any
+        - Absent
+      type:
+        enum:
+        - resource-lock
+    required:
+    - type
     - type
 
 

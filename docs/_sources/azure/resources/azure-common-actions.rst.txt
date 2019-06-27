@@ -10,6 +10,9 @@ Actions
    - :ref:`delete <Azure.common.actions.delete>`
 
 
+   - :ref:`lock <Azure.common.actions.lock>`
+
+
    - :ref:`logic-app <Azure.common.actions.logic-app>`
 
 
@@ -104,6 +107,57 @@ Delete a resource.
         enum:
         - delete
     required:
+    - type
+
+
+
+.. _Azure.common.actions.lock:
+
+lock
+++++
+
+Perform lock operation on any ARM resource. Can be used with
+generic resource type `armresource` or on any other more specific
+ARM resource type supported by Cloud Custodian.
+
+Lock can be of 2 types: ReadOnly and CanNotDelete. Lock type is required.
+
+To create or delete management locks, you must have proper access.
+See `Who can create or delete locks <https://docs.microsoft.com/en-us/azure/
+azure-resource-manager/resource-group-lock-resources#who-can-create-or-delete-locks>`_
+
+:example: Add ReadOnly lock to all keyvaults:
+
+.. code-block:: yaml
+
+   policies:
+      - name: lock-keyvaults
+        resource: azure.keyvault
+        actions:
+          - type: lock
+            lock-type: ReadOnly
+ 
+
+.. container:: toggle
+
+  
+
+  .. raw:: html
+     
+    <div class="header docutils container" style=""></div>
+
+  .. code-block:: yaml
+
+    properties:
+      lock-type:
+        enum:
+        - ReadOnly
+        - CanNotDelete
+      type:
+        enum:
+        - lock
+    required:
+    - lock-type
     - type
 
 

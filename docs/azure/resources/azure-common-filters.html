@@ -126,6 +126,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#offhour">offhour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#onhour">onhour</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#policy-compliant">policy-compliant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resource-lock">resource-lock</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#storage-diagnostic-settings">storage-diagnostic-settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#value">value</a></li>
 </ul>
@@ -260,6 +261,7 @@
 <li><p><a class="reference internal" href="#azure-common-filters-offhour"><span class="std std-ref">offhour</span></a></p></li>
 <li><p><a class="reference internal" href="#azure-common-filters-onhour"><span class="std std-ref">onhour</span></a></p></li>
 <li><p><a class="reference internal" href="#azure-common-filters-policy-compliant"><span class="std std-ref">policy-compliant</span></a></p></li>
+<li><p><a class="reference internal" href="#azure-common-filters-resource-lock"><span class="std std-ref">resource-lock</span></a></p></li>
 <li><p><a class="reference internal" href="#azure-common-filters-storage-diagnostic-settings"><span class="std std-ref">storage-diagnostic-settings</span></a></p></li>
 <li><p><a class="reference internal" href="#azure-common-filters-value"><span class="std std-ref">value</span></a></p></li>
 </ul>
@@ -811,6 +813,68 @@ resources.</p>
 <span class="nt">required</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">compliant</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="resource-lock">
+<span id="azure-common-filters-resource-lock"></span><h2>resource-lock<a class="headerlink" href="#resource-lock" title="Permalink to this headline">¶</a></h2>
+<p>Filter locked resources.
+Lock can be of 2 types: ReadOnly and CanNotDelete. To filter any lock, use “Any” type.
+Lock type is optional, by default any lock will be applied to the filter.
+To get unlocked resources, use “Absent” type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p>Get all keyvaults with ReadOnly lock:</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+ <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">locked-keyvaults</span>
+   <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.keyvault</span>
+   <span class="nt">filters</span><span class="p">:</span>
+     <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">resource-lock</span>
+       <span class="nt">lock-type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ReadOnly</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p>Get all locked sqldatabases (any type of lock):</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+ <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">locked-sqldatabases</span>
+   <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.sqldatabase</span>
+   <span class="nt">filters</span><span class="p">:</span>
+     <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">resource-lock</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p>Get all unlocked resource groups:</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+ <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">unlock-rgs</span>
+   <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.resourcegroup</span>
+   <span class="nt">filters</span><span class="p">:</span>
+     <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">resource-lock</span>
+       <span class="nt">lock-type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Absent</span>
+</pre></div>
+</div>
+<div class="toggle docutils container">
+<div class="header docutils container" style=""></div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">properties</span><span class="p">:</span>
+  <span class="nt">lock-type</span><span class="p">:</span>
+    <span class="nt">enum</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ReadOnly</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">CanNotDelete</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Any</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">Absent</span>
+  <span class="nt">type</span><span class="p">:</span>
+    <span class="nt">enum</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">resource-lock</span>
+<span class="nt">required</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
 </pre></div>
 </div>

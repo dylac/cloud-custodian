@@ -31,6 +31,8 @@ Filters
   
   - :ref:`policy-compliant <azure.common.filters.policy-compliant>`
   
+  - :ref:`resource-lock <azure.common.filters.resource-lock>`
+  
   - :ref:`resource-type <azure.armresource.filters.resource-type>`
 
   - :ref:`value <azure.common.filters.value>`
@@ -76,6 +78,8 @@ Actions
   
   - :ref:`delete <azure.common.actions.delete>`
   
+  - :ref:`lock <azure.common.actions.lock>`
+  
   - :ref:`logic-app <azure.common.actions.logic-app>`
   
   - :ref:`mark-for-op <azure.common.actions.mark-for-op>`
@@ -117,6 +121,8 @@ Filters
   
   - :ref:`policy-compliant <azure.common.filters.policy-compliant>`
   
+  - :ref:`resource-lock <azure.common.filters.resource-lock>`
+  
   - :ref:`value <azure.common.filters.value>`
   
 
@@ -155,6 +161,8 @@ Actions
   
   - :ref:`delete <azure.resourcegroup.actions.delete>`
 
+  - :ref:`lock <azure.common.actions.lock>`
+  
   - :ref:`logic-app <azure.common.actions.logic-app>`
   
   - :ref:`mark-for-op <azure.common.actions.mark-for-op>`
