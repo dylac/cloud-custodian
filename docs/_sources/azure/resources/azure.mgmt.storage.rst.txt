@@ -25,6 +25,8 @@ Filters
   
   - :ref:`policy-compliant <azure.common.filters.policy-compliant>`
   
+  - :ref:`storage-diagnostic-settings <azure.common.filters.storage-diagnostic-settings>`
+  
   - :ref:`value <azure.common.filters.value>`
   
 

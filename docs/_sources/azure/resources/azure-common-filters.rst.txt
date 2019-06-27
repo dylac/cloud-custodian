@@ -31,6 +31,9 @@ Filters
    - :ref:`policy-compliant <Azure.common.filters.policy-compliant>`
 
 
+   - :ref:`storage-diagnostic-settings <Azure.common.filters.storage-diagnostic-settings>`
+
+
    - :ref:`value <Azure.common.filters.value>`
 
 
@@ -701,6 +704,137 @@ resources.
     required:
     - type
     - compliant
+    - type
+
+
+
+.. _Azure.common.filters.storage-diagnostic-settings:
+
+storage-diagnostic-settings
++++++++++++++++++++++++++++
+
+Filters storage accounts based on its diagnostic settings. The filter requires
+specifying the storage type (blob, queue, table, file) and will filter based on
+the settings for that specific type.
+
+ :example:
+
+    Find all storage accounts that have a 'delete' logging setting disabled.
+
+ .. code-block:: yaml
+
+    policies:
+        - name: find-accounts-with-delete-logging-disabled
+          resource: azure.storage
+          filters:
+            - or:
+                - type: storage-diagnostic-settings
+                  storage_type: blob
+                  key: logging.delete
+                  op: eq
+                  value: False
+                - type: storage-diagnostic-settings
+                  storage_type: queue
+                  key: logging.delete
+                  op: eq
+                  value: False
+                - type: storage-diagnostic-settings
+                  storage_type: table
+                  key: logging.delete
+                  op: eq
+                  value: False
+
+.. container:: toggle
+
+  
+
+  .. raw:: html
+     
+    <div class="header docutils container" style=""></div>
+
+  .. code-block:: yaml
+
+    properties:
+      default:
+        type: object
+      key:
+        type: string
+      op:
+        enum:
+        - eq
+        - equal
+        - ne
+        - not-equal
+        - gt
+        - greater-than
+        - ge
+        - gte
+        - le
+        - lte
+        - lt
+        - less-than
+        - glob
+        - regex
+        - regex-case
+        - in
+        - ni
+        - not-in
+        - contains
+        - difference
+        - intersect
+      storage-type:
+        enum:
+        - blob
+        - queue
+        - table
+        - file
+        type: string
+      type:
+        enum:
+        - storage-diagnostic-settings
+      value:
+        oneOf:
+        - type: array
+        - type: string
+        - type: boolean
+        - type: number
+        - type: 'null'
+      value_from:
+        additionalProperties: 'False'
+        properties:
+          expr:
+            oneOf:
+            - type: integer
+            - type: string
+          format:
+            enum:
+            - csv
+            - json
+            - txt
+            - csv2dict
+          url:
+            type: string
+        required:
+        - url
+        type: object
+      value_regex:
+        type: string
+      value_type:
+        enum:
+        - age
+        - integer
+        - expiration
+        - normalize
+        - size
+        - cidr
+        - cidr_size
+        - swap
+        - resource_count
+        - expr
+        - unique_size
+        - date
+    required:
+    - storage-type
     - type
 
 
