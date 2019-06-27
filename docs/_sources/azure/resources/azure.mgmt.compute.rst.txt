@@ -76,7 +76,21 @@ Actions
 azure.image
 ===========
 
+Virtual Machine Image
 
+:example:
+Returns all virtual machine images named my-test-vm-image
+
+.. code-block:: yaml
+
+    policies:
+      - name: get-vm-image
+        resource: azure.image
+        filters:
+          - type: value
+            key: name
+            op: eq
+            value: my-test-vm-image
 
 Filters
 -------
