@@ -15,7 +15,20 @@ azure.azure.mgmt.web resources
 azure.appserviceplan
 ====================
 
+Application Service Plan
 
+:example:
+
+.. code-block:: yaml
+
+    policies:
+      - name: basic-tier-plans
+        resource: azure.appserviceplan
+        filters:
+          - type: value
+            key: sku.tier
+            op: eq
+            value: Basic
 
 Filters
 -------
@@ -64,7 +77,7 @@ Resize App Service Plans
 
 .. code-block:: yaml
 
-  policies:
+    policies:
     - name: azure-resize-plan
       resource: azure.appserviceplan
       actions:

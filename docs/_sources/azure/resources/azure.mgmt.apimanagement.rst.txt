@@ -9,7 +9,20 @@ azure.azure.mgmt.apimanagement resources
 azure.api-management
 ====================
 
+API Management Resource
 
+:example:
+
+.. code-block:: yaml
+
+    policies:
+      - name: api-management-no-vnet
+        resource: azure.api-management
+        filters:
+          - type: value
+            key: properties.virtualNetworkType
+            op: eq
+            value: None
 
 Filters
 -------

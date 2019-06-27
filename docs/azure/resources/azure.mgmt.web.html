@@ -255,6 +255,21 @@
 </div></blockquote>
 <div class="section" id="azure-appserviceplan">
 <span id="id1"></span><h2>azure.appserviceplan<a class="headerlink" href="#azure-appserviceplan" title="Permalink to this headline">¶</a></h2>
+<p>Application Service Plan</p>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">basic-tier-plans</span>
+    <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.appserviceplan</span>
+    <span class="nt">filters</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
+        <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sku.tier</span>
+        <span class="nt">op</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">eq</span>
+        <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Basic</span>
+</pre></div>
+</div>
 <div class="section" id="filters">
 <h3>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h3>
 <blockquote>
@@ -284,12 +299,12 @@
 <span id="azure-appserviceplan-actions-resize-plan"></span><h4>resize-plan<a class="headerlink" href="#resize-plan" title="Permalink to this headline">¶</a></h4>
 <p>Resize App Service Plans</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure-resize-plan</span>
-    <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.appserviceplan</span>
-    <span class="nt">actions</span><span class="p">:</span>
-     <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">resize-plan</span>
-       <span class="nt">size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">F1</span>
-       <span class="nt">count</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure-resize-plan</span>
+  <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.appserviceplan</span>
+  <span class="nt">actions</span><span class="p">:</span>
+   <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">resize-plan</span>
+     <span class="nt">size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">F1</span>
+     <span class="nt">count</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
 </div>
 <div class="toggle docutils container">
