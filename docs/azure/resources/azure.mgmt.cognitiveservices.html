@@ -244,6 +244,25 @@
 <h1>azure.azure.mgmt.cognitiveservices resources<a class="headerlink" href="#azure-azure-mgmt-cognitiveservices-resources" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="azure-cognitiveservice">
 <span id="id1"></span><h2>azure.cognitiveservice<a class="headerlink" href="#azure-cognitiveservice" title="Permalink to this headline">¶</a></h2>
+<p>Cognitive Services Resource</p>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>This policy will find all Cognitive Service accounts with 1000 or more
+total errors over the 72 hours</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cogserv-many-failures</span>
+    <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.cognitiveservice</span>
+    <span class="nt">filters</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metric</span>
+        <span class="nt">metric</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TotalErrors</span>
+        <span class="nt">op</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ge</span>
+        <span class="nt">aggregation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">total</span>
+        <span class="nt">threshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+        <span class="nt">timeframe</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">72</span>
+</pre></div>
+</div>
 <div class="section" id="filters">
 <h3>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h3>
 <blockquote>

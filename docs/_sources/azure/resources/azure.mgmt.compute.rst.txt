@@ -392,7 +392,21 @@ stop
 azure.vmss
 ==========
 
+Virtual Machine Scale Set Resource
 
+:example:
+This policy will find all VM Scale Sets that are set to overprovision
+
+.. code-block:: yaml
+
+    policies:
+      - name: find-vmss-overprovision-true
+        resource: azure.vmss
+        filters:
+          - type: value
+            key: properties.overprovision
+            op: equal
+            value: True
 
 Filters
 -------

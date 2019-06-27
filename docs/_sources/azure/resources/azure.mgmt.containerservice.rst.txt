@@ -72,7 +72,22 @@ Actions
 azure.containerservice
 ======================
 
+Container Service Resource
 
+:example:
+Returns all container services that did not provision successfully
+
+.. code-block:: yaml
+
+    policies:
+    - name: broken-containerservices
+      resource: azure.containerservice
+      filters:
+        - type: value
+          key: properties.provisioningState
+          op: not-equal
+          value_type: normalize
+          value: succeeded
 
 Filters
 -------

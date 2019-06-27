@@ -9,7 +9,21 @@ azure.azure.mgmt.databricks.databricks_client resources
 azure.databricks
 ================
 
+Databricks Resource
 
+:example:
+Returns all databricks named my-test-databricks
+
+.. code-block:: yaml
+
+    policies:
+      - name: get-databricks
+        resource: azure.databricks
+        filters:
+          - type: value
+            key: name
+            op: eq
+            value: my-test-databricks
 
 Filters
 -------

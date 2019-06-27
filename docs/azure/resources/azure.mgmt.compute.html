@@ -509,6 +509,22 @@
 </div>
 <div class="section" id="azure-vmss">
 <span id="id8"></span><h2>azure.vmss<a class="headerlink" href="#azure-vmss" title="Permalink to this headline">¶</a></h2>
+<p>Virtual Machine Scale Set Resource</p>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>This policy will find all VM Scale Sets that are set to overprovision</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">find-vmss-overprovision-true</span>
+    <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.vmss</span>
+    <span class="nt">filters</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
+        <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">properties.overprovision</span>
+        <span class="nt">op</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">equal</span>
+        <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+</pre></div>
+</div>
 <div class="section" id="id9">
 <h3>Filters<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <blockquote>

@@ -289,6 +289,23 @@
 </div>
 <div class="section" id="azure-containerservice">
 <span id="id2"></span><h2>azure.containerservice<a class="headerlink" href="#azure-containerservice" title="Permalink to this headline">¶</a></h2>
+<p>Container Service Resource</p>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Returns all container services that did not provision successfully</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">broken-containerservices</span>
+  <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.containerservice</span>
+  <span class="nt">filters</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
+      <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">properties.provisioningState</span>
+      <span class="nt">op</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">not-equal</span>
+      <span class="nt">value_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">normalize</span>
+      <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">succeeded</span>
+</pre></div>
+</div>
 <div class="section" id="id3">
 <h3>Filters<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <blockquote>
