@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cloud SQL - Check Regions of Instances and Their State &mdash; Cloud Custodian  documentation</title>
+  <title>DNS - Notify if Logging is Disabled in DNS Policy &mdash; Cloud Custodian  documentation</title>
   
 
   
@@ -39,8 +39,8 @@
   <link rel="stylesheet" href="../../_static/css/expand.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Cloud SQL - Notify on Certificates Which Are About to Expire" href="sql-sslcerts.html" />
-    <link rel="prev" title="Cloud SQL - Check Database Names Against a Naming Convention" href="sql-database.html" /> 
+    <link rel="next" title="Load Balancer - Network Tiers" href="loadbalancer-network-tiers.html" />
+    <link rel="prev" title="DNS - Notify if DNS Managed Zone has no DNSSEC" href="dns-managed-zone.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -126,11 +126,11 @@
 <li class="toctree-l2"><a class="reference internal" href="appengine-firewall-ingress-rule.html">App Engine - Check if a Firewall Rule is in Place</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dataflow-job.html">Dataflow -  Check for Hanged Jobs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dns-managed-zone.html">DNS - Notify if DNS Managed Zone has no DNSSEC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dns-policy.html">DNS - Notify if Logging is Disabled in DNS Policy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DNS - Notify if Logging is Disabled in DNS Policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="loadbalancer-network-tiers.html">Load Balancer - Network Tiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sql-backupruns.html">Cloud SQL - List Unsucessful Backups Older Than N Days</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sql-database.html">Cloud SQL - Check Database Names Against a Naming Convention</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Cloud SQL - Check Regions of Instances and Their State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sql-instance.html">Cloud SQL - Check Regions of Instances and Their State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sql-sslcerts.html">Cloud SQL - Notify on Certificates Which Are About to Expire</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sql-users.html">Cloud SQL - Check Users</a></li>
 </ul>
@@ -202,7 +202,7 @@
         
           <li><a href="index.html">Examples</a> &raquo;</li>
         
-      <li>Cloud SQL - Check Regions of Instances and Their State</li>
+      <li>DNS - Notify if Logging is Disabled in DNS Policy</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -219,32 +219,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cloud-sql-check-regions-of-instances-and-their-state">
-<h1>Cloud SQL - Check Regions of Instances and Their State<a class="headerlink" href="#cloud-sql-check-regions-of-instances-and-their-state" title="Permalink to this headline">¶</a></h1>
-<p>Execution of the following policy returns instances which are not in an approved set of regions AND not in runnable state. You may use more complex logic to combine any condition you need.</p>
+  <div class="section" id="dns-notify-if-logging-is-disabled-in-dns-policy">
+<h1>DNS - Notify if Logging is Disabled in DNS Policy<a class="headerlink" href="#dns-notify-if-logging-is-disabled-in-dns-policy" title="Permalink to this headline">¶</a></h1>
+<p>A policy is a collection of DNS rules applied to one or more Virtual Private Cloud resources. Custodian can check logging state in DNS policies and report those which violate an established logging convention.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">notify</span></code> action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the <a class="reference internal" href="../policy/genericgcpactions.html#gcp-genericgcpactions"><span class="std std-ref">Generic Actions</span></a> page.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sql-instance</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-    <span class="no">check basic work of Cloud SQL filter on instances: returns instances which are not in an approved set of regions AND not in runnable state</span>
-  <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcp.sql-instance</span>
-  <span class="nt">filters</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
-      <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">region</span>
-      <span class="nt">op</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">not-in</span>
-      <span class="nt">value</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">europe-west1</span><span class="p p-Indicator">,</span> <span class="nv">europe-west2</span><span class="p p-Indicator">]</span>
-    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
-      <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">state</span>
-      <span class="nt">op</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">not-equal</span>
-      <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RUNNABLE</span>
-  <span class="nt">actions</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">notify</span>
-      <span class="nt">to</span><span class="p">:</span>
-       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">email@address</span>
-      <span class="c1"># address doesnt matter</span>
-      <span class="nt">format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">txt</span>
-      <span class="nt">transport</span><span class="p">:</span>
-        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pubsub</span>
-        <span class="nt">topic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">projects/river-oxygen-233508/topics/first</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcp-dns-policies-notify-if-logging-disabled</span>
+      <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcp.dns-policy</span>
+      <span class="nt">filters</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
+          <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">enableLogging</span>
+          <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+      <span class="nt">actions</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">notify</span>
+          <span class="nt">to</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">email@email</span>
+          <span class="nt">format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">json</span>
+          <span class="nt">transport</span><span class="p">:</span>
+            <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pubsub</span>
+            <span class="nt">topic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">projects/cloud-custodian/topics/dns</span>
 </pre></div>
 </div>
 </div>
@@ -257,10 +250,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sql-sslcerts.html" class="btn btn-neutral float-right" title="Cloud SQL - Notify on Certificates Which Are About to Expire" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="loadbalancer-network-tiers.html" class="btn btn-neutral float-right" title="Load Balancer - Network Tiers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="sql-database.html" class="btn btn-neutral float-left" title="Cloud SQL - Check Database Names Against a Naming Convention" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dns-managed-zone.html" class="btn btn-neutral float-left" title="DNS - Notify if DNS Managed Zone has no DNSSEC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
