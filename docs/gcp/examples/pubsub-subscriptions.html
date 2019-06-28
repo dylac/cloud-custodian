@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cloud SQL - Check Database Names Against a Naming Convention &mdash; Cloud Custodian  documentation</title>
+  <title>Pub/Sub - Audit Subscriptions to Match Requirements &mdash; Cloud Custodian  documentation</title>
   
 
   
@@ -39,8 +39,8 @@
   <link rel="stylesheet" href="../../_static/css/expand.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Cloud SQL - Check Regions of Instances and Their State" href="sql-instance.html" />
-    <link rel="prev" title="Cloud SQL - List Unsucessful Backups Older Than N Days" href="sql-backupruns.html" /> 
+    <link rel="next" title="Cloud SQL - List Unsucessful Backups Older Than N Days" href="sql-backupruns.html" />
+    <link rel="prev" title="Pub/Sub - Early Detection of Obsolete Snapshots" href="pubsub-snapshots.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -129,9 +129,9 @@
 <li class="toctree-l2"><a class="reference internal" href="dns-policy.html">DNS - Notify if Logging is Disabled in DNS Policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="loadbalancer-network-tiers.html">Load Balancer - Network Tiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pubsub-snapshots.html">Pub/Sub - Early Detection of Obsolete Snapshots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pubsub-subscriptions.html">Pub/Sub - Audit Subscriptions to Match Requirements</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pub/Sub - Audit Subscriptions to Match Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sql-backupruns.html">Cloud SQL - List Unsucessful Backups Older Than N Days</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Cloud SQL - Check Database Names Against a Naming Convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sql-database.html">Cloud SQL - Check Database Names Against a Naming Convention</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sql-instance.html">Cloud SQL - Check Regions of Instances and Their State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sql-sslcerts.html">Cloud SQL - Notify on Certificates Which Are About to Expire</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sql-users.html">Cloud SQL - Check Users</a></li>
@@ -204,7 +204,7 @@
         
           <li><a href="index.html">Examples</a> &raquo;</li>
         
-      <li>Cloud SQL - Check Database Names Against a Naming Convention</li>
+      <li>Pub/Sub - Audit Subscriptions to Match Requirements</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -221,29 +221,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cloud-sql-check-database-names-against-a-naming-convention">
-<h1>Cloud SQL - Check Database Names Against a Naming Convention<a class="headerlink" href="#cloud-sql-check-database-names-against-a-naming-convention" title="Permalink to this headline">¶</a></h1>
-<p>The following example policies will allow you to control your Cloud SQL naming convention and check your instances for databases which names don’t match that. A naming convention can be set up using standard regexp (regular expressions) syntax.</p>
+  <div class="section" id="pub-sub-audit-subscriptions-to-match-requirements">
+<h1>Pub/Sub - Audit Subscriptions to Match Requirements<a class="headerlink" href="#pub-sub-audit-subscriptions-to-match-requirements" title="Permalink to this headline">¶</a></h1>
+<p>In Cloud Pub/Sub, subscriptions connect a topic to a subscriber application that receives and processes messages published to the topic. Custodian can find Pub/Sub subscriptions whose settings do not match the required ones.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">notify</span></code> action requires a Pub/Sub topic to be configured. To configure Cloud Pub/Sub messaging please take a look at the <a class="reference internal" href="../policy/genericgcpactions.html#gcp-genericgcpactions"><span class="std std-ref">Generic Actions</span></a> page.</p>
+<p>In the example below, users are notified if the resources appearing in the logs with <code class="docutils literal notranslate"><span class="pre">CreateSubscription</span></code> or <code class="docutils literal notranslate"><span class="pre">UpdateSubscription</span></code> action have expiration policy unset.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sql-database</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-    <span class="no">check basic work of Cloud SQL filter on databases: return databases which names doesn&#39;t follow a certain naming convention</span>
-  <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcp.sql-database</span>
-  <span class="nt">filters</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
-      <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
-      <span class="nt">op</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">not-equal</span>
-      <span class="nt">op</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">regex</span>
-      <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">^prod[-]{1}[a-z]*</span>
-  <span class="nt">actions</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">notify</span>
-      <span class="nt">to</span><span class="p">:</span>
-       <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">email@address</span>
-      <span class="c1"># address doesnt matter</span>
-      <span class="nt">format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">txt</span>
-      <span class="nt">transport</span><span class="p">:</span>
-        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pubsub</span>
-        <span class="nt">topic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">projects/river-oxygen-233508/topics/first</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcp-pub-sub-subscription-audit</span>
+    <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcp.pubsub-subscription</span>
+    <span class="nt">mode</span><span class="p">:</span>
+      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gcp-audit</span>
+      <span class="nt">methods</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;google.pubsub.v1.Subscriber.CreateSubscription&quot;</span>
+        <span class="p p-Indicator">-</span> <span class="s">&quot;google.pubsub.v1.Subscriber.UpdateSubscription&quot;</span>
+    <span class="nt">filters</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
+        <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">expirationPolicy.ttl</span>
+        <span class="nt">value</span><span class="p">:</span>
+    <span class="nt">actions</span><span class="p">:</span>
+     <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">notify</span>
+       <span class="nt">to</span><span class="p">:</span>
+         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">email@address</span>
+       <span class="nt">format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">txt</span>
+       <span class="nt">transport</span><span class="p">:</span>
+         <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pubsub</span>
+         <span class="nt">topic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">projects/my-gcp-project/topics/my-topic</span>
 </pre></div>
 </div>
 </div>
@@ -256,10 +258,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sql-instance.html" class="btn btn-neutral float-right" title="Cloud SQL - Check Regions of Instances and Their State" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sql-backupruns.html" class="btn btn-neutral float-right" title="Cloud SQL - List Unsucessful Backups Older Than N Days" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="sql-backupruns.html" class="btn btn-neutral float-left" title="Cloud SQL - List Unsucessful Backups Older Than N Days" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pubsub-snapshots.html" class="btn btn-neutral float-left" title="Pub/Sub - Early Detection of Obsolete Snapshots" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
