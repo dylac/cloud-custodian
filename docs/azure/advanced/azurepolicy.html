@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Custodian and Azure Policy &mdash; Cloud Custodian  documentation</title>
+  <title>Azure Policy Comparison &mdash; Cloud Custodian  documentation</title>
   
 
   
@@ -107,15 +107,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authentication.html">Authentication &amp; Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../policy/index.html">Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../policy/index.html">Supported Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../azure-modes.html">Azure Modes</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced Usage</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="azurefunctions.html">Azure Functions Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multiplesubs.html">Running against multiple subscriptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bloboutput.html">Blob Storage Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="appinsightslogging.html">App Insights Logging &amp; Metrics</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Custodian and Azure Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Azure Policy Comparison</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contribute.html">Developer Guide</a></li>
@@ -193,7 +195,7 @@
         
           <li><a href="index.html">Advanced Usage</a> &raquo;</li>
         
-      <li>Custodian and Azure Policy</li>
+      <li>Azure Policy Comparison</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -210,8 +212,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="custodian-and-azure-policy">
-<span id="azure-azurepolicy"></span><h1>Custodian and Azure Policy<a class="headerlink" href="#custodian-and-azure-policy" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="azure-policy-comparison">
+<span id="azure-azurepolicy"></span><h1>Azure Policy Comparison<a class="headerlink" href="#azure-policy-comparison" title="Permalink to this headline">¶</a></h1>
 <p>Cloud Custodian and Azure Policy have significant overlap in scenarios they can accomplish with
 regard to compliance implementations. These areas of overlap can make it unclear to new users
 which tool is appropriate for a specific task.</p>
@@ -233,9 +235,8 @@ mitigation actions to requirements covered by Azure Policy.</p>
 multi-cloud environment you can take advantage of the Custodian support for managing Azure Policy
 with Custodian filters and actions.  This way your Custodian rules can actually ensure Azure Policy
 is configured correctly.</p>
-</div>
 <div class="section" id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>In Azure Policy we can require users to include an owner tag on every Virtual Machine.
 If they create any deployment without one the Portal or API will return an error code.</p>
 <p>The users will manually update their ARM templates or use the Tag UI in the Azure Portal
@@ -248,6 +249,7 @@ required user action.</p>
 This is out-of-scope for Azure Policy because it is not a deployment property filter.</p>
 <p>With Cloud Custodian a policy to find and delete unused Network Interfaces would look
 like this:</p>
+</div>
 </div>
 
 
