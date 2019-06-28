@@ -103,7 +103,17 @@ Actions
 azure.resourcegroup
 ===================
 
+Resource Group Resource
 
+:example:
+
+Finds all Resource Groups in the subscription.
+
+.. code-block:: yaml
+
+    policies:
+        - name: find-all-resource-groups
+          resource: azure.resourcegroup
 
 Filters
 -------

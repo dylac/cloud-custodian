@@ -570,7 +570,17 @@ Allow access to Security Rule
 azure.publicip
 ==============
 
+Public IP Resource
 
+:example:
+
+Finds all Public IPs in the subscription.
+
+.. code-block:: yaml
+
+    policies:
+        - name: find-all-public-ips
+          resource: azure.publicip
 
 Filters
 -------
@@ -627,7 +637,17 @@ Actions
 azure.routetable
 ================
 
+Route Table Resource
 
+:example:
+
+Finds all Route Tables in the subscription.
+
+.. code-block:: yaml
+
+    policies:
+        - name: find-all-route-tables
+          resource: azure.routetable
 
 Filters
 -------

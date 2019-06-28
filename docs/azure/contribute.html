@@ -105,24 +105,25 @@
 <p class="caption"><span class="caption-text">Azure</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authentication.html#azure-storage-access">Azure Storage access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication &amp; Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="policy/index.html">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure-modes.html">Azure Modes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced/index.html">Advanced Usage</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#adding-new-azure-resources">Adding New Azure Resources</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#install-azure-dependencies">Install Azure Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#create-new-azure-resource">Create New Azure Resource</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#load-new-azure-resource">Load New Azure Resource</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-new-azure-resources">Adding New Azure Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-azure-dependencies">Install Azure Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-new-azure-resource">Create New Azure Resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-new-azure-resource">Load New Azure Resource</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#testing">Testing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#test-framework">Test framework</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#arm-templates">ARM templates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cassettes">Cassettes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#test-framework">Test framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arm-templates">ARM templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cassettes">Cassettes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-tests">Running tests</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="resources/index.html">Azure Reference</a></li>
@@ -224,11 +225,10 @@ $ <span class="nb">source</span> bin/activate
 </div>
 <p>This creates a virtual env in your enlistment and installs all packages as editable.</p>
 <p>You can also simply do <cite>pip install -r requirements-dev.txt</cite> to install all dev/test dependencies.</p>
-</div>
 <div class="section" id="adding-new-azure-resources">
-<h1>Adding New Azure Resources<a class="headerlink" href="#adding-new-azure-resources" title="Permalink to this headline">¶</a></h1>
+<h2>Adding New Azure Resources<a class="headerlink" href="#adding-new-azure-resources" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="install-azure-dependencies">
-<h2>Install Azure Dependencies<a class="headerlink" href="#install-azure-dependencies" title="Permalink to this headline">¶</a></h2>
+<h3>Install Azure Dependencies<a class="headerlink" href="#install-azure-dependencies" title="Permalink to this headline">¶</a></h3>
 <p>Custodian interfaces with ARM resources using Azure’s SDKs.
 Install the resources SDK in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">install_requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;azure-mgmt-authorization&quot;</span><span class="p">,</span>
@@ -239,7 +239,7 @@ Install the resources SDK in <code class="docutils literal notranslate"><span cl
 </div>
 </div>
 <div class="section" id="create-new-azure-resource">
-<h2>Create New Azure Resource<a class="headerlink" href="#create-new-azure-resource" title="Permalink to this headline">¶</a></h2>
+<h3>Create New Azure Resource<a class="headerlink" href="#create-new-azure-resource" title="Permalink to this headline">¶</a></h3>
 <p>Create your new Azure Resource.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">service</span></code>: The Azure SDK dependency added in step 1.</p></li>
@@ -269,7 +269,7 @@ Install the resources SDK in <code class="docutils literal notranslate"><span cl
 </div>
 </div>
 <div class="section" id="load-new-azure-resource">
-<h2>Load New Azure Resource<a class="headerlink" href="#load-new-azure-resource" title="Permalink to this headline">¶</a></h2>
+<h3>Load New Azure Resource<a class="headerlink" href="#load-new-azure-resource" title="Permalink to this headline">¶</a></h3>
 <p>Once the required dependecies are installed and created the new Azure Resource, custodian will
 load all registered resources. Import the resource in
 <code class="docutils literal notranslate"><span class="pre">entry.py</span></code>.</p>
@@ -279,19 +279,19 @@ load all registered resources. Import the resource in
 </div>
 </div>
 <div class="section" id="testing">
-<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
 <p>Tests for c7n_azure run automatically with other Custodian tests.  See <a class="reference internal" href="../developer/tests.html#developer-tests"><span class="std std-ref">Testing for Developers</span></a>
 for information on how to run Tox.</p>
 <p>If you’d like to run tests at the command line or in your IDE then reference <cite>tox.ini</cite> to see the required
 environment variables and command lines for running <cite>pytest</cite>.</p>
 <div class="section" id="test-framework">
-<h2>Test framework<a class="headerlink" href="#test-framework" title="Permalink to this headline">¶</a></h2>
+<h3>Test framework<a class="headerlink" href="#test-framework" title="Permalink to this headline">¶</a></h3>
 <p>c7n_azure uses <cite>VCR.py</cite> for tests.
 This framework is used for tests in the official Azure Python SDK.</p>
 <p>VCRpy documentation can be found here: <a class="reference external" href="https://vcrpy.readthedocs.io/en/latest/">VCR.py documentation</a>.</p>
 </div>
 <div class="section" id="arm-templates">
-<h2>ARM templates<a class="headerlink" href="#arm-templates" title="Permalink to this headline">¶</a></h2>
+<h3>ARM templates<a class="headerlink" href="#arm-templates" title="Permalink to this headline">¶</a></h3>
 <p>To ensure VCR cassettes can be easily re-recorded, there are ARM templates to deploy Azure tests infrastructure.</p>
 <p>These templates will allow you to provision real Azure resources appropriate for recreating the VCR
 cassettes used by the unit tests.  They will let you run the unit tests against real resources.</p>
@@ -317,18 +317,19 @@ required infrastructure if needed.</p>
 </div>
 </div>
 <div class="section" id="cassettes">
-<h2>Cassettes<a class="headerlink" href="#cassettes" title="Permalink to this headline">¶</a></h2>
+<h3>Cassettes<a class="headerlink" href="#cassettes" title="Permalink to this headline">¶</a></h3>
 <p><cite>AzureVCRBaseTest</cite> attempts to automatically obscure keys and other secrets in cassettes and replace subscription ids,
 but it is required to verify cassettes don’t contain any sensitive information before submitting.</p>
 <p>For long standing operations cassette can be modified to reduce test execution time (in case recorded cassette contains some responses with Retry-After headers or Azure SDK waits until resource is provisioned).</p>
 </div>
 <div class="section" id="running-tests">
-<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<h3>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h3>
 <p>You can use <cite>tox</cite> to run all tests or instead you can use <cite>pytest</cite> and run only Azure tests (or only specific set of tests). Runing recorded tests still requires some authentication, it is possible to use fake data for authorization token and subscription id.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">AZURE_ACCESS_TOKEN</span><span class="o">=</span>fake_token
 <span class="nb">export</span> <span class="nv">AZURE_SUBSCRIPTION_ID</span><span class="o">=</span>ea42f556-5106-4743-99b0-c129bfa71a47
 pytest tools/c7n_azure/tests
 </pre></div>
+</div>
 </div>
 </div>
 </div>

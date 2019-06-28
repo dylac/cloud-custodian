@@ -105,15 +105,12 @@
 <p class="caption"><span class="caption-text">Azure</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Authentication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../authentication.html#azure-storage-access">Azure Storage access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authentication.html">Authentication &amp; Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../policy/index.html">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../azure-modes.html">Azure Modes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced/index.html">Advanced Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contribute.html">Developer Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contribute.html#adding-new-azure-resources">Adding New Azure Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contribute.html#testing">Testing</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Azure Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="azure-common-actions.html">Azure Common Actions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="azure-common-filters.html">Azure Common Filters</a></li>
@@ -691,6 +688,17 @@
 </div>
 <div class="section" id="azure-publicip">
 <span id="id8"></span><h2>azure.publicip<a class="headerlink" href="#azure-publicip" title="Permalink to this headline">¶</a></h2>
+<p>Public IP Resource</p>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Finds all Public IPs in the subscription.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">find-all-public-ips</span>
+      <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.publicip</span>
+</pre></div>
+</div>
 <div class="section" id="id9">
 <h3>Filters<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <blockquote>
@@ -725,6 +733,17 @@
 </div>
 <div class="section" id="azure-routetable">
 <span id="id11"></span><h2>azure.routetable<a class="headerlink" href="#azure-routetable" title="Permalink to this headline">¶</a></h2>
+<p>Route Table Resource</p>
+<dl class="field-list simple">
+<dt class="field-odd">example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p>Finds all Route Tables in the subscription.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">policies</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">find-all-route-tables</span>
+      <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure.routetable</span>
+</pre></div>
+</div>
 <div class="section" id="id12">
 <h3>Filters<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <blockquote>

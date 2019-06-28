@@ -15,7 +15,20 @@ azure.azure.mgmt.sql resources
 azure.sqldatabase
 =================
 
+SQL Server Database Resource
 
+The ``azure.sqldatabase`` resource is a child resource of the SQL Server resource,
+and the SQL Server parent id is available as the ``c7n:parent-id`` property.
+
+:example:
+
+Finds all SQL Servers Database in the subscription.
+
+.. code-block:: yaml
+
+    policies:
+        - name: find-all-sql-databases
+          resource: azure.sqldatabase
 
 Filters
 -------
@@ -323,7 +336,17 @@ Update the short term backup retention policy for a SQL Database.
 azure.sqlserver
 ===============
 
+SQL Server Resource
 
+:example:
+
+Finds all SQL Servers in the subscription.
+
+.. code-block:: yaml
+
+    policies:
+        - name: find-all-sql-servers
+          resource: azure.sqlserver
 
 Filters
 -------

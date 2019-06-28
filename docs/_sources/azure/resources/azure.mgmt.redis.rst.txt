@@ -9,7 +9,17 @@ azure.azure.mgmt.redis resources
 azure.redis
 ===========
 
+Redis Resource
 
+:example:
+
+Finds all Redis resources in the subscription.
+
+.. code-block:: yaml
+
+    policies:
+        - name: find-all-redis
+          resource: azure.redis
 
 Filters
 -------
