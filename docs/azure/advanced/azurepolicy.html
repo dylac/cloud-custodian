@@ -38,7 +38,9 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/expand.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Developer Guide" href="../contribute.html" />
+    <link rel="prev" title="App Insights Logging &amp; Metrics" href="appinsightslogging.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -101,14 +103,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../../aws/resources/index.html">AWS Reference</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Azure</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authentication.html#azure-storage-access">Azure Storage access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../policy/index.html">Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../azure-modes.html">Azure Modes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Advanced Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Advanced Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="azurefunctions.html">Azure Functions Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiplesubs.html">Running against multiple subscriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bloboutput.html">Blob Storage Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appinsightslogging.html">App Insights Logging &amp; Metrics</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Custodian and Azure Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../contribute.html">Developer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contribute.html#adding-new-azure-resources">Adding New Azure Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contribute.html#testing">Testing</a></li>
@@ -184,6 +194,8 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
+          <li><a href="index.html">Advanced Usage</a> &raquo;</li>
+        
       <li>Custodian and Azure Policy</li>
     
     
@@ -202,7 +214,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="custodian-and-azure-policy">
-<span id="azure-policy"></span><h1>Custodian and Azure Policy<a class="headerlink" href="#custodian-and-azure-policy" title="Permalink to this headline">¶</a></h1>
+<span id="azure-azurepolicy"></span><h1>Custodian and Azure Policy<a class="headerlink" href="#custodian-and-azure-policy" title="Permalink to this headline">¶</a></h1>
 <p>Cloud Custodian and Azure Policy have significant overlap in scenarios they can accomplish with
 regard to compliance implementations. These areas of overlap can make it unclear to new users
 which tool is appropriate for a specific task.</p>
@@ -246,6 +258,15 @@ like this:</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../contribute.html" class="btn btn-neutral float-right" title="Developer Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="appinsightslogging.html" class="btn btn-neutral float-left" title="App Insights Logging &amp; Metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
