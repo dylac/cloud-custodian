@@ -376,7 +376,6 @@ class LambdaTagTest(BaseTest):
              'xyz': 'abcdef'})
 
 
-
 class TestModifyVpcSecurityGroupsAction(BaseTest):
 
     def test_lambda_remove_matched_security_groups(self):
@@ -420,27 +419,11 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
             session_factory=session_factory,
         )
         
-        clean_p = self.load_policy(
-            {
-                "name": "lambda-verify-remove-matched-security-groups",
-                "resource": "lambda",
-                "filters": [
-                    {
-                        "type": "value",
-                        "key": "FunctionName",
-                        "value": "resource-fixer",
-                        "op": "eq",
-                    }
-                ],
-            },
-            session_factory=session_factory,
-        )
-        
         resources = p.run()
-        clean_resources = clean_p.run()
+        client = session_factory().client('lambda')
+        response = client.list_functions()
+        clean_resources = response['Functions']
 
-        print(resources)
-        print(clean_resources)
         self.assertEqual(len(resources), 1)
         self.assertIn("fixer", resources[0]["FunctionName"])
         self.assertEqual(len(resources[0]["VpcConfig"]["SecurityGroupIds"]), 3)
@@ -475,26 +458,11 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
             },
             session_factory=session_factory,
         )
-        clean_p = self.load_policy(
-            {
-                "name": "lambda-verify-add-security-group",
-                "resource": "lambda",
-                "filters": [
-                    {
-                        "type": "value",
-                        "key": "FunctionName",
-                        "value": "resource-fixer",
-                        "op": "eq",
-                    }
-                ],
-            },
-            session_factory=session_factory,
-        )
 
         resources = p.run()
-        clean_resources = clean_p.run()
-        print(resources)
-        print(clean_resources)
+        client = session_factory().client('lambda')
+        response = client.list_functions()
+        clean_resources = response['Functions']
 
         self.assertEqual(len(resources), 1)
         self.assertEqual("resource-fixer", resources[0]["FunctionName"])
