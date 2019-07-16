@@ -418,7 +418,7 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
             },
             session_factory=session_factory,
         )
-        
+
         resources = p.run()
         client = session_factory().client('lambda')
         response = client.list_functions()
@@ -430,7 +430,7 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         # check result is expected
         self.assertEqual(len(clean_resources[0]["VpcConfig"]["SecurityGroupIds"]), 2)
         self.assertNotIn("sg-c573e6b3", clean_resources[0]["VpcConfig"]["SecurityGroupIds"])
-        # verify by name that the removed SG is not there 
+        # verify by name that the removed SG is not there
 
     def test_lambda_add_security_group(self):
 

@@ -417,7 +417,6 @@ class LambdaModifyVpcSecurityGroups(ModifyVpcSecurityGroupsAction):
                         raise
             except KeyError as keyerr: # will happen if non-VPC function
                 continue
-                    
 
 
 @resources.register('lambda-layer')
