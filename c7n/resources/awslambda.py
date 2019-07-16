@@ -403,10 +403,9 @@ class LambdaModifyVpcSecurityGroups(ModifyVpcSecurityGroupsAction):
         client = local_session(self.manager.session_factory).client('lambda')
         groups = super(LambdaModifyVpcSecurityGroups, self).get_groups(
             functions)
-        # should possibly return only VPC-enabled lambdas here?
 
         for idx, i in enumerate(functions):
-            if 'VpcConfig' in i:
+            try:
                 if i['VpcConfig']['VpcId']:  # only continue if Lambda func is VPC-enabled
                     try:
                         self.log.debug(groups[idx])
@@ -416,6 +415,8 @@ class LambdaModifyVpcSecurityGroups(ModifyVpcSecurityGroupsAction):
                         if e.response['Error']['Code'] == "ResourceNotFoundException":
                             continue
                         raise
+            except KeyError as keyerr: # will happen if non-VPC function
+                continue
                     
 
 
