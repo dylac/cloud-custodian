@@ -415,7 +415,7 @@ class LambdaModifyVpcSecurityGroups(ModifyVpcSecurityGroupsAction):
                         if e.response['Error']['Code'] == "ResourceNotFoundException":
                             continue
                         raise
-            except KeyError as keyerr: # will happen if non-VPC function
+            except KeyError:  # will happen if non-VPC function
                 continue
 
 
