@@ -450,8 +450,8 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
                     {
                         "type": "value",
                         "key": "FunctionName",
-                        "value": "resource-fixer",
-                        "op": "eq",
+                        "value": ".*",
+                        "op": "regex",
                     },
                 ],
                 "actions": [{"type": "modify-security-groups", "add": "sg-c573e6b3"}],
@@ -464,10 +464,11 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         response = client.list_functions()
         clean_resources = response['Functions']
 
-        self.assertEqual(len(resources), 1)
+        self.assertEqual(len(resources), 2)
         self.assertEqual("resource-fixer", resources[0]["FunctionName"])
         self.assertEqual(len(resources[0]["VpcConfig"]["SecurityGroupIds"]), 2)
         self.assertNotIn("sg-c573e6b3", resources[0]["VpcConfig"]["SecurityGroupIds"])
         # check SG was added
         self.assertEqual(len(clean_resources[0]["VpcConfig"]["SecurityGroupIds"]), 3)
         self.assertIn("sg-c573e6b3", clean_resources[0]["VpcConfig"]["SecurityGroupIds"])
+        self.assertRaises(KeyError, resources[1].get(resources[1]['VpcConfig']['VpcId']))
