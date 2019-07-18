@@ -386,6 +386,7 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         #    - removing a third SG, "sg_controllers" (sg-c573e6b3)
         #    - start with 3 SGs, end with 2, match function by regex
 
+        badname = 'test-invalid-function-name'
         session_factory = self.replay_flight_data(
             "test_lambda_remove_matched_security_groups"
         )
@@ -432,6 +433,9 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         self.assertNotIn("sg-c573e6b3", clean_resources[0]["VpcConfig"]["SecurityGroupIds"])
         # verify by name that the removed SG is not there
 
+        self.assertRaises(ClientError, client.update_function_configuration, FunctionName=badname)
+
+
     def test_lambda_add_security_group(self):
 
         # Test conditions:
@@ -440,6 +444,7 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         #    - adding a third SG, "sg_controllers" (sg-c573e6b3)
         #    - start with 2 SGs, end with 3, match functuin by exact name
 
+        badname = 'test-invalid-function-name'
         session_factory = self.replay_flight_data("test_lambda_add_security_group")
 
         p = self.load_policy(
@@ -471,3 +476,5 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         # check SG was added
         self.assertEqual(len(clean_resources[0]["VpcConfig"]["SecurityGroupIds"]), 3)
         self.assertIn("sg-c573e6b3", clean_resources[0]["VpcConfig"]["SecurityGroupIds"])
+
+        self.assertRaises(ClientError, client.update_function_configuration, FunctionName=badname)
