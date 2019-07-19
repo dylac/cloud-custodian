@@ -768,12 +768,10 @@ class AppELBModifyVpcSecurityGroups(ModifyVpcSecurityGroupsAction):
 
     def process(self, albs):
         client = local_session(self.manager.session_factory).client('elbv2')
-        groups = super(AppELBModifyVpcSecurityGroups, self).get_groups(
-            albs)
+        groups = super(AppELBModifyVpcSecurityGroups, self).get_groups(albs)
 
         for idx, i in enumerate(albs):
             try:
-                self.log.debug(groups[idx])
                 client.set_security_groups(
                     LoadBalancerArn=i['LoadBalancerArn'],
                     SecurityGroups=groups[idx])
@@ -781,7 +779,7 @@ class AppELBModifyVpcSecurityGroups(ModifyVpcSecurityGroupsAction):
                 if e.response['Error']['Code'] == "LoadBalancerNotFoundException":
                     continue
                 raise
-
+h
 
 @AppELB.filter_registry.register('healthcheck-protocol-mismatch')
 class AppELBHealthCheckProtocolMismatchFilter(Filter,
