@@ -702,7 +702,6 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertIn("test", resources[0]["LoadBalancerName"])
         self.assertEqual(len(resources[0]["SecurityGroups"]), 2)
-        self.assertIn("sg-c573e6b3", resources[0]["SecurityGroups"])
         # check result is expected
         self.assertEqual(len(clean_resources[0]["SecurityGroups"]), 1)
         self.assertNotIn("sg-c573e6b3", clean_resources[0]["SecurityGroups"])
