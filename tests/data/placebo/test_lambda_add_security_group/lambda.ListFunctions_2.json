@@ -58,11 +58,6 @@
                 "LastModified": "2019-07-12T16:08:01.519+0000",
                 "CodeSha256": "4oAC20hFsF52y4MT9uY2BW/yKce2ekd6Zj9RkmxWMbU=",
                 "Version": "$LATEST",
-                "VpcConfig": {
-                    "SubnetIds": [],
-                    "SecurityGroupIds": [],
-                    "VpcId": ""
-                },
                 "TracingConfig": {
                     "Mode": "PassThrough"
                 },

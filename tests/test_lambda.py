@@ -475,6 +475,33 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         self.assertIn("sg-c573e6b3", clean_resources[0]["VpcConfig"]["SecurityGroupIds"])
 
 
+    def test_nonvpc_function(self):
+
+        session_factory = self.replay_flight_data("test_lambda_add_security_group")
+
+        p = self.load_policy(
+            {
+                "name": "test-with-nonvpc-lambda",
+                "resource": "lambda",
+                "filters": [
+                    {
+                        "type": "value",
+                        "key": "FunctionName",
+                        "value": "test-func.*",
+                        "op": "regex",
+                    },
+                ],
+                "actions": [{"type": "modify-security-groups", "add": "sg-c573e6b3"}],
+            },
+            session_factory=session_factory,
+        )
+
+        resources = p.run()
+
+        self.assertEqual(len(resources), 1)
+        self.assertEqual("test-func-2", resources[0]["FunctionName"])
+
+
     def test_lambda_notfound_exception(self):
         error_response = {'Error': { 'Code' : 'ResourceNotFoundException' } }
         operation_name = 'UpdateFunctionConfiguration'
