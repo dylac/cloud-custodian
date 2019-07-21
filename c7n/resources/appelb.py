@@ -775,10 +775,8 @@ class AppELBModifyVpcSecurityGroups(ModifyVpcSecurityGroupsAction):
                 client.set_security_groups(
                     LoadBalancerArn=i['LoadBalancerArn'],
                     SecurityGroups=groups[idx])
-            except ClientError as e:
-                if e.response['Error']['Code'] == "LoadBalancerNotFoundException":
-                    continue
-                raise
+            except client.exceptions.LoadBalancerNotFoundException:
+                continue
 
 
 @AppELB.filter_registry.register('healthcheck-protocol-mismatch')
