@@ -20,7 +20,6 @@ import json
 import logging
 import six
 
-from botocore.exceptions import ClientError
 from collections import defaultdict
 from c7n.actions import ActionRegistry, BaseAction, ModifyVpcSecurityGroupsAction
 from c7n.exceptions import PolicyValidationError
