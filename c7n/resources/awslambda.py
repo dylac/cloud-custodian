@@ -405,13 +405,13 @@ class LambdaModifyVpcSecurityGroups(ModifyVpcSecurityGroupsAction):
             functions)
 
         for idx, i in enumerate(functions):
+            if 'VpcConfig' not in i:  # only continue if Lambda func is VPC-enabled
+                continue
             try:
                 client.update_function_configuration(FunctionName=i['FunctionName'],
                                             VpcConfig={'SecurityGroupIds': groups[idx]})
-            except ClientError as e:
-                if e.response['Error']['Code'] == "ResourceNotFoundException":
-                    continue
-                raise
+            except client.exceptions.ResourceNotFoundException:
+                continue
 
 
 @resources.register('lambda-layer')

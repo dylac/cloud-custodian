@@ -19,7 +19,7 @@ from mock import patch
 from botocore.exceptions import ClientError
 from .common import BaseTest, functional
 from c7n.executor import MainThreadExecutor
-from c7n.resources.awslambda import AWSLambda, ReservedConcurrency, LambdaModifyVpcSecurityGroups
+from c7n.resources.awslambda import AWSLambda, ReservedConcurrency
 from c7n.mu import PythonPackageArchive
 
 
@@ -473,7 +473,6 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         # check SG was added
         self.assertEqual(len(clean_resources[0]["VpcConfig"]["SecurityGroupIds"]), 3)
         self.assertIn("sg-c573e6b3", clean_resources[0]["VpcConfig"]["SecurityGroupIds"])
-        self.assertRaises(KeyError, resources[1].get(resources[1]['VpcConfig']['VpcId']))
 
 
     def test_lambda_notfound_exception(self):
