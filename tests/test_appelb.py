@@ -746,3 +746,4 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         # check SG was added
         self.assertEqual(len(clean_resources[0]["SecurityGroups"]), 2)
         self.assertIn("sg-c573e6b3", clean_resources[0]["SecurityGroups"])
+        
