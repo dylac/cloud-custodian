@@ -501,7 +501,7 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         self.assertEqual("test-func-2", resources[0]["FunctionName"])
 
     def test_lambda_notfound_exception(self):
-        error_response = {'Error':{'Code':'ResourceNotFoundException'}}
+        error_response = {'Error': {'Code': 'ResourceNotFoundException'}}
         operation_name = 'UpdateFunctionConfiguration'
         with patch("c7n.resources.awslambda.local_session") as mock_local_session:
             updatefunc = mock_local_session.client.update_function_configuration
