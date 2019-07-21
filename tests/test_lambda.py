@@ -461,7 +461,7 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         )
 
         resources = p.run()
-        
+
         client = session_factory().client('lambda')
         response = client.list_functions()
         clean_resources = response['Functions']
@@ -473,7 +473,6 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         # check SG was added
         self.assertEqual(len(clean_resources[0]["VpcConfig"]["SecurityGroupIds"]), 3)
         self.assertIn("sg-c573e6b3", clean_resources[0]["VpcConfig"]["SecurityGroupIds"])
-
 
     def test_nonvpc_function(self):
 
@@ -501,13 +500,13 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         self.assertEqual(len(resources), 1)
         self.assertEqual("test-func-2", resources[0]["FunctionName"])
 
-
     def test_lambda_notfound_exception(self):
-        error_response = {'Error': { 'Code' : 'ResourceNotFoundException' } }
+        error_response = {'Error':{'Code':'ResourceNotFoundException'}}
         operation_name = 'UpdateFunctionConfiguration'
         with patch("c7n.resources.awslambda.local_session") as mock_local_session:
-            mock_local_session.client.update_function_configuration.side_effect = ClientError(error_response, operation_name)
+            updatefunc = mock_local_session.client.update_function_configuration
+            updatefunc.side_effect = ClientError(error_response, operation_name)
             with self.assertRaises(ClientError):
                 groups = ['sg-12121212', 'sg-34343434']
-                mock_local_session.client.update_function_configuration(FunctionName='badname', VpcConfig={'SecurityGroupIds': groups})
-                mock_local_session.client.update_function_configuration.assert_called_once()
+                updatefunc(FunctionName='badname', VpcConfig={'SecurityGroupIds': groups})
+                updatefunc.assert_called_once()
