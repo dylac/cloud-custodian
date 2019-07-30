@@ -1254,6 +1254,69 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         self.assertEqual(len(clean_resources[0]["VpcSecurityGroups"]), 2)
         self.assertEqual(len(clean_resources), 4)
 
+    def test_rds_filter_by_vpcid(self):
+        #
+        # Test conditions:
+        #   - running 2 Aurora DB clusters in default VPC with 2 instances each
+        #        - translates to 4 actual instances
+        #    - a default security group with id 'sg-7a3fcb13' exists -
+        #      attached to all instances
+        #    - security group named PROD-ONLY-Test-Security-Group exists in
+        #      VPC and is attached to 2/4 instances
+        #        - translates to 2 instances marked to get new group attached
+        #
+        # Results in 4 instances with default Security Group and
+        # PROD-ONLY-Test-Security-Group
+        session_factory = self.replay_flight_data("test_rds_filter_by_vpcid")
+        p = self.load_policy(
+            {
+                "name": "filter-by-vpcid",
+                "resource": "rds",
+                "filters": [
+                    {"type": "security-group", "key": "GroupName", "value": "default"},
+                    {
+                        "type": "value",
+                        "key": "DBInstanceIdentifier",
+                        "value": "test-sg-fail.*",
+                        "op": "regex",
+                    },
+                    {
+                        "type": "value",
+                        "key": "DBSubnetGroup.VpcId",
+                        "value": "vpc-09b75e60",
+                        "op": "eq",
+                    },
+                ],
+                "actions": [{"type": "modify-security-groups", "add": "sg-6360920a"}],
+            },
+            session_factory=session_factory,
+        )
+
+        clean_p = self.load_policy(
+            {
+                "name": "validate-add-sg-to-prod-rds",
+                "resource": "rds",
+                "filters": [
+                    {"type": "security-group", "key": "GroupName", "value": "default"},
+                    {
+                        "type": "security-group",
+                        "key": "GroupName",
+                        "value": "PROD-ONLY-Test-Security-Group",
+                    },
+                ],
+            },
+            session_factory=session_factory,
+        )
+
+        resources = p.run()
+        clean_resources = clean_p.run()
+
+        self.assertEqual(len(resources), 2)
+        self.assertIn("test-sg-fail", resources[0]["DBInstanceIdentifier"])
+        self.assertEqual(len(resources[0]["VpcSecurityGroups"]), 1)
+        self.assertEqual(len(clean_resources[0]["VpcSecurityGroups"]), 2)
+        self.assertEqual(len(clean_resources), 4)
+
 
 class TestHealthEventsFilter(BaseTest):
 
