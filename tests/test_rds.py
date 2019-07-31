@@ -1275,8 +1275,8 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
                         "op": "regex",
                     },
                     {
-                        "type": "value",
-                        "key": "DBSubnetGroup.VpcId",
+                        "type": "vpc",
+                        "key": "VpcId",
                         "value": "vpc-09b75e60",
                         "op": "eq",
                     },
