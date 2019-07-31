@@ -1254,6 +1254,43 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
         self.assertEqual(len(clean_resources[0]["VpcSecurityGroups"]), 2)
         self.assertEqual(len(clean_resources), 4)
 
+    def test_rds_filter_by_vpcid(self):
+        #
+        # Test conditions:
+        # Purpose of test is only to validate checking vpc ID with DBSubnetGroup.VpcId
+        # Uses the add_security_group data--should match 2 DB instances
+        # Checks that the expected VPC is present
+
+        session_factory = self.replay_flight_data("test_rds_add_security_group")
+        p = self.load_policy(
+            {
+                "name": "filter-by-vpcid",
+                "resource": "rds",
+                "filters": [
+                    {"type": "security-group", "key": "GroupName", "value": "default"},
+                    {
+                        "type": "value",
+                        "key": "DBInstanceIdentifier",
+                        "value": "test-sg-fail.*",
+                        "op": "regex",
+                    },
+                    {
+                        "type": "vpc",
+                        "key": "VpcId",
+                        "value": "vpc-09b75e60",
+                        "op": "eq",
+                    },
+                ],
+                "actions": [{"type": "modify-security-groups", "add": "sg-6360920a"}],
+            },
+            session_factory=session_factory,
+        )
+
+        resources = p.run()
+
+        self.assertEqual(len(resources), 2)
+        self.assertEqual("vpc-09b75e60", resources[0]["DBSubnetGroup"]["VpcId"])
+
 
 class TestHealthEventsFilter(BaseTest):
 
