@@ -1257,8 +1257,8 @@ class TestModifyVpcSecurityGroupsAction(BaseTest):
     def test_rds_filter_by_vpcid(self):
         #
         # Test conditions:
-        # Purpose of test is only to validate checking vpc ID with DBSubnetGroup.VpcId
-        # Uses the add_security_group data--should match 2 DB instances
+        # Purpose of test is only to validate checking vpc filtered ID with DBSubnetGroup.VpcId
+        # Uses the add_security_group data--should match 4 DB instances (all in the filtered VPC)
         # Checks that the expected VPC is present
 
         session_factory = self.replay_flight_data("test_rds_add_security_group")
